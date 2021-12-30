@@ -16,7 +16,7 @@ body {
 .all {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 800px;
     overflow: hidden;
     animation: start-page 4s linear 1 normal forwards;
 }
@@ -84,6 +84,7 @@ nav {
     align-items: center;
 }
 header label {
+    color: rgb(238, 14, 81);
     font-size: 2rem;
     padding: 10px;
 }
@@ -99,43 +100,100 @@ nav ul li {
     padding: 10px 20px;
 }
 nav ul li:hover {
+    cursor: pointer;
     transition: all ease-in 0.2s;
     background-color: rgb(238, 14, 81);
     border-radius: 50px;
 } 
 
+/* responsive navbar */
+.resp-nav {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    background-color: rgb(238, 14, 81);
+    border-radius: 50%;
+    box-shadow:
+    inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/ 
+    inset 0 2px 2px rgba(255,255,255,0.8);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resp-nav .bar {
+    width: 25px;
+    height: 4px;
+    background-color: white;
+    border-radius: 1px;
+    position: absolute;
+}
+.bar1 {
+    top: 30%
+}
+.bar2 {
+    top:47%
+}
+.bar3{
+    top:64%
+}
 /* animation */
 .main {
     margin-top: 200px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 .text {
-    animation: text-motion 3s ease-out 7s 1 normal forwards;
+     animation: text-motion 3s ease-out 7s 1 normal forwards;
     flex-basis: 30%;
     position: relative;
     left: -700px;
-    min-height: 300px;
 }
+.text-cont {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 2s linear;
+}
+.fashion {
+    position: relative;
+    opacity: 1;
+}
+
 .animation {
     background: radial-gradient(400px, rgb(238, 14, 81), transparent 50%);
     animation: animation-motion 3s ease-out 7s 1 normal forwards;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     right: -700px;
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
 }
 
 .animation label {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+}
+.rotation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotation-anim 60s linear 1s infinite normal;
 }
 .icons {
-    background-color: rgba(255, 255, 255, 0.555);
+    background-color: rgba(255, 255, 255, 0.5);
     position: absolute;
+    z-index: 10;
+    left: 0;
+    transform-origin: 200px;
     border-radius: 50%;
     box-sizing: content-box;
     padding: 20px;
@@ -149,38 +207,27 @@ nav ul li:hover {
     object-fit: cover;
     object-position: center center;
 }
-.rotation {
-    width: 100%;
-    height: 100%;
-    animation: rotation-anim 60s linear 1s infinite normal;
-}
+
 .dress {
-    top: 0;
-    left: 40%;
+    transform: rotate(72deg);
 }
 .boot {
-    top: 25%;
-    right: 0;
+    transform: rotate(144deg);
 }
 .lipstick {
-    top: 75%;
-    left: 70%;
+    transform: rotate(216deg);
 }
 .lotion {
-    top: 25%;
-    left: 0;
+    transform: rotate(288deg);
 }
-
 .glass {
-    top: 75%;
-    left: 15%;
+    transform: rotate(0deg);
 }
-
 .icons:hover {
     cursor: pointer;
-    transform: scale(1.2);
     border: solid rgb(238, 14, 81) 2px;
 }
+ 
 @keyframes rotation-anim {
     from {}
     to {transform: rotate(360deg);}
@@ -195,17 +242,80 @@ nav ul li:hover {
     to {left: 0;}
 }
 
-/* clicking on icons */
 
+/* responsiveness */
+@media screen and (max-width:769px) {
+    .main {
+        flex-direction: column-reverse;
+        margin-top: 100px;
+    }
+    .text {
+        margin-top: 40px;
+        width: 90%;
+    }
 
-.text-cont {
-    font-size: 1.5rem;
-    position: absolute;
-    opacity: 0;
-    transition: all 2s linear;
+    /* responsive navbar */
+    nav {
+        margin-top: 10px;
+        position: fixed;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    header nav label {
+        display: none;
+    }
+    header nav .links {
+        position: absolute;
+        opacity: 0;
+        top:80px;
+        left: 20px;
+        background-color: rgba(0, 0, 0, 0.644);
+        border-radius: 30px;
+        text-align: center;
+        flex-direction: column;
+    }
+    header nav .resp-nav {
+        order: -1;
+        display: flex;
+    }
+    header nav .resp-nav:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+        background-color: rgb(236, 91, 135);
+    }
+    header nav .links.active {
+        opacity: 1;
+        transition: all 1s ease-out;
+    }
 }
-.fashion {
-    opacity: 1;
+
+@media screen and (max-width:420px) {
+    .animation {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(250px, rgb(238, 14, 81), transparent 50%); 
+    }
+
+    .icons {
+        left: 0;
+        transform: rotate(0deg);
+        transform-origin: 150px;
+        width: 30px;
+        height: 30px;
+    }
+    .dress {
+        transform: rotate(72deg);
+    }
+    .boot {
+        transform: rotate(144deg);
+    }
+    .lipstick {
+        transform: rotate(216deg);
+    }
+    .lotion {
+        transform: rotate(288deg);
+    }
+    .glass {
+        transform: rotate(0deg);
+    }
 }
-
-
